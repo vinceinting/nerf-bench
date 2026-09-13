@@ -1,0 +1,3 @@
+# The private task store: real harvested tasks, candidates, selections and clone cache.
+# Hidden task content is never committed to this repository (N-03).
+.store/

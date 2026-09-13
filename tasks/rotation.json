@@ -1,0 +1,7 @@
+{
+  "interval_days": 28,
+  "overlap_days": 7,
+  "label": "Build default: chosen by the build as an operational default within amendment A1's \"rotate faster\" (Amendment 13). Vince may override it by amendment at any time.",
+  "chosen_on": "2026-09-13",
+  "why": "Four weeks keeps a leaked set's useful life short while leaving time to harvest and hand-pick 50 to 100 validated tasks for the next one; one week of overlap gives every floor schedule at least seven days of runs on both sets to bridge the chart."
+}

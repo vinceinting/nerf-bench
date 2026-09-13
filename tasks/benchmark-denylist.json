@@ -1,0 +1,18 @@
+{
+  "purpose": "Repositories whose bug fixes appear in published benchmark task lists. The harvester refuses any candidate from them (N-02), so no task is borrowed from a public benchmark. Matching is by repository, which is stricter than matching single task instances.",
+  "sources": {
+    "SWE-bench family (SWE-bench, SWE-bench Lite, SWE-bench Verified)": [
+      "astropy/astropy", "django/django", "matplotlib/matplotlib", "mwaskom/seaborn", "pallets/flask",
+      "psf/requests", "pydata/xarray", "pylint-dev/pylint", "pytest-dev/pytest", "scikit-learn/scikit-learn",
+      "sphinx-doc/sphinx", "sympy/sympy"
+    ],
+    "SWE-bench Multimodal and Multilingual additions": [
+      "Automattic/wp-calypso", "chartjs/Chart.js", "diegomura/react-pdf", "markedjs/marked", "processing/p5.js",
+      "openlayers/openlayers", "GoogleChrome/lighthouse", "PrismJS/prism", "alibaba-fusion/next", "bpmn-io/bpmn-js"
+    ],
+    "Aider Polyglot (Exercism practice exercises)": [
+      "exercism/cpp", "exercism/go", "exercism/java", "exercism/javascript", "exercism/python", "exercism/rust",
+      "Aider-AI/polyglot-benchmark"
+    ]
+  }
+}
