@@ -1,5 +1,5 @@
 'use strict';
-// Automatic grading, pass or fail only (R-14). No model, no judge, no network:
+// Automatic grading, pass or fail only (R-14). No model or AI grader, no network:
 // a task passes when its check command exits 0 in the working copy the agent left,
 // after the task's hidden check files are laid over it. Nothing here opens a socket.
 const fs = require('fs');
