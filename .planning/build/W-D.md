@@ -16,6 +16,11 @@ Code plus `node --test` suites pass; each owned prd-cell run with exit read back
 - Tests: `node --test markers/test/markers.test.cjs site/data/test/data.test.cjs site/methodology/test/methodology.test.cjs tools/verify/test/verify.test.cjs` -> 27 pass, 0 fail.
 - Ran `node markers/run.cjs feeds --since-days 90`: 91 app releases, 15 model releases, 75 status incidents stored (181 markers). x.ai/news and status.x.ai both HTTP 403 to a script (Cloudflare).
 
+## Cell exits (read back after commit 32a2388)
+- PASS 0: R-18, R-21, R-47, R-48, R-49, N-12.
+- FAIL 1, honestly: R-17 and R-58 (local publish passes; no deployment 2 at NERF_PUBLIC_VERIFY_URL), R-20 (content present; no deployment 2 and no earliest public result), R-44 (claude-code and codex-cli markers fine; no official feed for grok-build, codex-desktop, claude-desktop), R-45 and R-46 (anthropic and openai fine; x.ai/news and status.x.ai return 403), R-57 (no published run with a real attestation exists).
+- prd-verify: 6 passed, 79 failed, 0 could-not-answer, of 85 live cells; 1 retired.
+
 ## Stats interface assumed (W-B, stats/index.cjs)
 `computeSeries({ runs: [{started_at, passed, total}] /* one series key */, releaseAt }) -> { baseline:{from,to,rate,n,frozen}, dayOne:{date,rate,n}, points:[{date,rate,n,lower,upper}], verdict:{headline|null,text} }`.
 site/data/lib/stats-adapter.cjs uses it when stats/index.cjs exists, else a labelled Wilson stand-in (`stats_source` in every output says which).
