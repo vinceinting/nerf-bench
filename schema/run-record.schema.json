@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/vinceinting/nerf-bench/schema/run-record.schema.json",
+  "title": "nerf-bench run record (result.json)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "run_id", "started_at", "ended_at", "app", "model", "effort", "effort_is_default", "access_path", "account_source", "contributor", "floor", "machine", "fingerprint", "deviations", "task_sets", "tasks", "totals", "workflow", "scorer_commit"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "run_id": { "type": "string", "description": "GitHub run id plus attempt, e.g. 123456789-1" },
+    "started_at": { "type": "string", "format": "date-time", "description": "ISO 8601 with offset" },
+    "ended_at": { "type": "string", "format": "date-time" },
+    "app": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "version", "installer", "track"],
+      "properties": {
+        "id": { "enum": ["claude-code", "codex-cli", "grok-build", "codex-desktop", "claude-desktop"] },
+        "version": { "type": "string" },
+        "installer": { "type": "string", "description": "the official install command or installer URL used" },
+        "track": { "enum": ["latest", "frozen"] }
+      }
+    },
+    "model": { "type": "string", "description": "catalog model id (config/catalog)" },
+    "effort": { "type": "string" },
+    "effort_is_default": { "type": "boolean" },
+    "access_path": { "enum": ["subscription", "api"] },
+    "account_source": { "enum": ["self-paid", "contributor-owned", "donated"] },
+    "contributor": { "type": "string", "minLength": 1, "description": "GitHub username that triggered the run" },
+    "floor": { "type": "boolean" },
+    "machine": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["hosted", "os", "image"],
+      "properties": {
+        "hosted": { "const": true },
+        "os": { "enum": ["linux", "windows", "macos"] },
+        "image": { "type": "string", "description": "runner image name and version" }
+      }
+    },
+    "fingerprint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "paths"],
+      "properties": {
+        "value": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "paths": { "type": "array", "items": { "type": "string" }, "description": "config locations fingerprinted at run start" }
+      }
+    },
+    "deviations": {
+      "type": "array",
+      "items": { "enum": ["commands auto-approved", "web access blocked"] },
+      "minItems": 2,
+      "maxItems": 2,
+      "uniqueItems": true
+    },
+    "task_sets": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "version", "fingerprint"],
+        "properties": {
+          "id": { "type": "string" },
+          "version": { "type": "string" },
+          "fingerprint": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+        }
+      }
+    },
+    "tasks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["task_id", "set_id", "pass", "tokens_in", "tokens_out", "tool_calls", "duration_s", "transcript_sha256"],
+        "properties": {
+          "task_id": { "type": "string" },
+          "set_id": { "type": "string" },
+          "pass": { "type": "boolean" },
+          "tokens_in": { "type": ["integer", "null"], "minimum": 0 },
+          "tokens_out": { "type": ["integer", "null"], "minimum": 0 },
+          "tool_calls": { "type": ["integer", "null"], "minimum": 0 },
+          "duration_s": { "type": "number", "minimum": 0 },
+          "transcript_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+        }
+      }
+    },
+    "totals": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["passed", "total", "tokens_in", "tokens_out", "cost_usd", "tool_calls", "duration_s"],
+      "properties": {
+        "passed": { "type": "integer", "minimum": 0 },
+        "total": { "type": "integer", "minimum": 0 },
+        "tokens_in": { "type": ["integer", "null"] },
+        "tokens_out": { "type": ["integer", "null"] },
+        "cost_usd": { "type": ["number", "null"], "description": "null on the subscription path; the run page says why" },
+        "tool_calls": { "type": ["integer", "null"] },
+        "duration_s": { "type": "number" }
+      }
+    },
+    "workflow": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository", "path", "commit", "caller_repository"],
+      "properties": {
+        "repository": { "const": "vinceinting/nerf-bench", "description": "the official repository whose reusable workflow ran" },
+        "path": { "type": "string" },
+        "commit": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+        "caller_repository": { "type": "string", "description": "the contributor's copy that called it" }
+      }
+    },
+    "scorer_commit": { "type": "string", "pattern": "^[0-9a-f]{40}$" }
+  }
+}
