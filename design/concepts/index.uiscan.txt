@@ -1,0 +1,4 @@
+node C:\Users\Vince\.harness-v2\tools\uiscan\uiscan.cjs index.html   (exit 0, 2026-09-13)
+First run flagged flat-type-hierarchy (16px, 16.8px, 25.6px); heading sizes raised and rescanned.
+scanned 1 file(s) across 1 rendered surface(s): default
+CLEAN. No finding on any surface that renders.

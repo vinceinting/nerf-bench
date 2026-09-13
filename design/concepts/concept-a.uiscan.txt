@@ -1,0 +1,5 @@
+node C:\Users\Vince\.harness-v2\tools\uiscan\uiscan.cjs concept-a.html   (exit 0, 2026-09-13)
+scanned 1 file(s) across 2 rendered surface(s): default, dark
+WARN concept-a.html: more than one top-level :root block. The surface merge reads the first one only, so a palette defined in a later block may be misreported.
+CLEAN. No finding on any surface that renders.
+Not covered by the scan (checked by hand): link, span and button contrast. Links use the band colour, 8.3:1 light, over 7:1 dark.

@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Concept C: nerf-bench, Foam</title>
+<style>
+:root {
+  --bg: #f7f8fa; --surface: #ffffff; --ink: #1e1a14; --muted: #5c5448; --line: #e6dfcf;
+  --foam: #f2b705; --foam-ink: #1e1a14; --band: #8a4b00; --band-fill: rgba(242,183,5,0.24); --base: #2b5d8c;
+  --sans: "Trebuchet MS", "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+  --body: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #15130f; --surface: #1f1c17; --ink: #f5efe2; --muted: #c2b8a6; --line: #38332a;
+    --band: #ffd24d; --band-fill: rgba(255,210,77,0.18); --base: #8cc2f2;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #15130f; --surface: #1f1c17; --ink: #f5efe2; --muted: #c2b8a6; --line: #38332a;
+  --band: #ffd24d; --band-fill: rgba(255,210,77,0.18); --base: #8cc2f2;
+}
+* { box-sizing: border-box; }
+html { background: var(--bg); color: var(--ink); font: 16px/1.6 var(--body); }
+body { margin: 0; }
+::selection { background: var(--foam); color: var(--foam-ink); }
+a { color: var(--base); text-underline-offset: 3px; }
+:focus-visible { outline: 3px solid var(--base); outline-offset: 2px; border-radius: 6px; }
+.wrap { max-width: 1040px; margin: 0 auto; padding: 28px 24px 64px; }
+header { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.brand { display: flex; align-items: center; gap: 12px; }
+.brand span { font-family: var(--sans); font-weight: 700; font-size: 1.5rem; }
+button.theme { font: inherit; font-size: 0.875rem; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 999px; padding: 7px 14px; cursor: pointer; }
+button.theme:hover { border-color: var(--ink); }
+h1, h2, h3 { font-family: var(--sans); font-weight: 700; }
+h1 { font-size: 2.4rem; line-height: 1.15; margin: 44px 0 10px; letter-spacing: -0.01em; }
+h2 { font-size: 1.3rem; margin: 48px 0 12px; }
+p { max-width: 66ch; margin: 0 0 12px; }
+.lede { color: var(--muted); font-size: 1.1rem; }
+.swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 14px; }
+.sw { border-radius: 14px; overflow: hidden; border: 1px solid var(--line); background: var(--surface); }
+.sw i { display: block; height: 60px; }
+.sw div { padding: 8px 12px; font-size: 0.85rem; }
+.sw code { color: var(--muted); }
+.type-row { padding: 12px 0; border-top: 1px solid var(--line); }
+.type-row small { display: block; color: var(--muted); }
+.num { font-variant-numeric: tabular-nums; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 20px; max-width: 440px; box-shadow: 0 2px 10px rgba(30,26,20,0.06); }
+.card-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.card h3 { margin: 0; font-size: 1.15rem; }
+.card .lab { color: var(--muted); font-size: 0.85rem; margin: 2px 0 12px; }
+.verdict { font-size: 1rem; margin: 12px 0 4px; }
+.meta { color: var(--muted); font-size: 0.8rem; }
+svg.chart { width: 100%; height: auto; display: block; }
+.legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: 0.8rem; color: var(--muted); margin-top: 6px; }
+details { margin-top: 14px; background: var(--bg); border: 1px solid var(--line); border-radius: 12px; padding: 10px 14px; }
+summary { cursor: pointer; font-size: 0.9rem; font-weight: 600; }
+details blockquote { margin: 10px 0 0; font-size: 0.92rem; }
+details .src { color: var(--muted); font-size: 0.8rem; margin-top: 6px; }
+ul.voice { padding-left: 20px; max-width: 66ch; }
+ul.voice li { margin-bottom: 6px; }
+@media (max-width: 560px) { h1 { font-size: 1.8rem; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="brand">
+    <svg width="44" height="44" viewBox="0 0 44 44" role="img" aria-label="nerf-bench logo">
+      <rect x="4" y="16" width="26" height="12" rx="6" fill="#f2b705" stroke="#1e1a14" stroke-width="2"/>
+      <path d="M30 16 H34 A6 6 0 0 1 34 28 H30 Z" fill="#2b5d8c" stroke="#1e1a14" stroke-width="2"/>
+      <line x1="10" y1="22" x2="24" y2="22" stroke="#1e1a14" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    <span>nerf-bench</span>
+  </div>
+  <button class="theme" type="button" onclick="var r=document.documentElement;r.dataset.theme=(r.dataset.theme==='dark'||(!r.dataset.theme&&matchMedia('(prefers-color-scheme: dark)').matches))?'light':'dark'">Switch light or dark</button>
+</header>
+
+<h1>Concept C: Foam</h1>
+<p class="lede">Leans into the playful name. A soft foam dart for a logo, a warm yellow, rounded shapes. The fun stops at the brand: charts and verdicts stay exact and dry.</p>
+
+<h2>Name and logo</h2>
+<p>Keeps <strong>nerf-bench</strong>, lowercase, as a friendly wink. The mark is a toy foam dart seen side on: harmless by design, which is the joke. It is the only place the joke appears.</p>
+
+<h2>Colour</h2>
+<div class="swatches">
+  <div class="sw"><i style="background:#f2b705"></i><div>Foam yellow<br><code>#f2b705</code></div></div>
+  <div class="sw"><i style="background:#2b5d8c"></i><div>Tip blue<br><code>#2b5d8c</code></div></div>
+  <div class="sw"><i style="background:#1e1a14"></i><div>Ink<br><code>#1e1a14</code></div></div>
+  <div class="sw"><i style="background:#f7f8fa"></i><div>Cloud<br><code>#f7f8fa</code></div></div>
+  <div class="sw"><i style="background:#8a4b00"></i><div>Band amber<br><code>#8a4b00</code></div></div>
+</div>
+<p class="meta" style="margin-top:8px">Yellow is never used for text on light ground; it only fills the band and the logo, with ink on top (ink on yellow 11:1). Tip blue on cloud 6.6:1. Band amber on white 6.6:1.</p>
+
+<h2>Type</h2>
+<div class="type-row"><small>Display: Trebuchet MS, a humanist sans with rounded warmth</small><div style="font-family:var(--sans);font-weight:700;font-size:1.6rem">Is it still as good as launch week?</div></div>
+<div class="type-row"><small>Body and data: system sans</small><div>Default effort, subscription app, <span class="num">120</span> tasks</div></div>
+
+<h2>Home grid card</h2>
+<article class="card">
+  <div class="card-head"><h3>Model Alpha</h3><span class="meta">Lab One</span></div>
+  <div class="lab">Default effort, subscription app</div>
+  <svg class="chart" viewBox="0 0 320 150" role="img" aria-label="Pass rate over twelve weeks. Launch week baseline 72 percent. Latest week 71 percent, inside the confidence band.">
+    <path d="M20,50 C80,46 140,54 200,50 S280,52 300,52 L300,90 C280,90 240,88 200,86 S80,90 20,84 Z" fill="var(--band-fill)"/>
+    <line x1="20" y1="66" x2="300" y2="66" stroke="var(--base)" stroke-width="2" stroke-dasharray="2 5" stroke-linecap="round"/>
+    <path d="M20,67 C80,65 140,72 200,68 S280,70 300,71" fill="none" stroke="var(--band)" stroke-width="2.5" stroke-linecap="round"/>
+    <circle cx="20" cy="67" r="6" fill="#f2b705" stroke="var(--ink)" stroke-width="2"/>
+    <text x="20" y="145" font-size="10" fill="var(--muted)">day one</text>
+    <text x="300" y="145" font-size="10" fill="var(--muted)" text-anchor="end">this week</text>
+    <text x="300" y="60" font-size="10" fill="var(--base)" text-anchor="end">launch week 72%</text>
+  </svg>
+  <div class="legend"><span>shaded: 95% band</span><span>dotted: launch week</span><span>yellow dot: day one</span></div>
+  <p class="verdict"><strong>Within normal variation.</strong> <span class="num">71%</span> now, <span class="num">72%</span> at launch.</p>
+  <div class="meta">Signed run, checked this morning</div>
+  <details>
+    <summary>Lab One replied (their words, not ours)</summary>
+    <blockquote>We shipped an app update on 2 September that changed the default context window. We are investigating reports of slower responses.</blockquote>
+    <div class="src">Shown exactly as sent. <a href="#">Original</a></div>
+  </details>
+</article>
+
+<h2>Verdict voice</h2>
+<ul class="voice">
+  <li>Within normal variation.</li>
+  <li>Confirmed drop of 7 points since launch week.</li>
+  <li>Confirmed rise of 4 points since launch week.</li>
+  <li>Still collecting this week's runs.</li>
+</ul>
+<p>The brand can smile; the verdicts never do. No jokes, puns or dart imagery ever appear next to a number.</p>
+
+<h2>Rationale</h2>
+<p>A memorable, shareable look helps a small independent site get noticed and remembered. Keeping every playful element on the brand side of a hard line, and none on the data side, lets the tone be friendly without making any single finding feel like a jab at a lab.</p>
+</div>
+</body>
+</html>
