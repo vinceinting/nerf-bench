@@ -28,6 +28,7 @@ A public website that measures whether frontier AI models' real-world performanc
 ### 2. What is measured
 - **D-09:** Two access paths are tracked and charted as separate lines, never averaged: signed in with a subscription, and API key.
 - **D-10:** Two app-version tracks per model: "latest" (whatever version is current) and "frozen" (one version held fixed, advanced only on a schedule and marked on the chart when it moves).
+  - **Amendment A2 (2026-09-13, raised in PRD review run c-mu06ff7r-mfcm66):** The floor runs both tracks for each flagship. Contributors choose latest or frozen per run. Vince: "both tracks, and that's available to me AND community. community can choose frozen or latest when they do their run"
 
 ### 3. The tests
 - **D-11:** The task set is hidden: delivered only inside the sealed run, never shown to contributors. A fingerprint of the set is published on day one. Tasks rotate out on a schedule; each rotation overlaps the old set for a period to bridge the chart; retired tasks are published in full with every past answer.
@@ -84,6 +85,7 @@ A public website that measures whether frontier AI models' real-world performanc
 
 ### Closing contract
 - **D-43 (done means):** Ready to flip on release day. Everything is built and proven in a private dry run on today's models: sealed, signed runs working for all five apps, the copy-and-run contributor flow working end to end, the floor running on Vince's three plans, the site showing the dry-run data. Going public when a flagship ships is flipping a switch.
+  - **Amendment A3 (2026-09-13, raised in PRD review run c-mu06ff7r-mfcm66):** Vince spends nothing on API keys, including for dry-run proofs. The dry run proves the subscription path in all five apps; the API path is proved per app only once a key not paid by Vince exists, and until an app's API path is proved the site accepts no API-path result for that app. Vince's choice: "Wait for someone else's keys".
 - **D-44 (must happen):** Every result is independently checkable against the public code without trusting Vince. The statistical rule and the methodology page (including the D-35 limit) are public before the first result. The floor is already running on the day a flagship ships, so launch week is never missed. Every run carries its complete public record.
 - **D-45 (must not):** The site never sees, stores or relays a contributor's Claude, ChatGPT or Grok login or API key. No run is edited, removed or re-scored for anyone, labs and sponsors included. No verdict claims intent or uses "nerfed". Effort levels, access paths and app-version tracks are never averaged into one line, and hidden tasks never leak before they retire.
 

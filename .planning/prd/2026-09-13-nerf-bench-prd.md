@@ -583,4 +583,143 @@ Decision-relevant exchanges, carried here so no executor reopens the log. Preced
 
 ## Amendments ledger
 
-Append only. Empty at birth: no amendment has been made yet.
+Append only. Empty at birth.
+
+Every entry below lands the agreed joint proposal of consensus run c-mu06ff7r-mfcm66, round 1, digest 89c6f69098120b29 (`C:\Users\Vince\Documents\VS Code Projects\nerf-bench\.planning\review\joint-proposal-round-1.md`), plus Vince's two answers given during that run. Where an entry supersedes a cell's description, the stub under `prd-cells/` still exits 1 and the build writes it to the amended description, not the original. Low and trivial findings are parked in `.planning/review-debt.md` and change nothing here.
+
+**Amendment 1: attestation boundary (H-a).**
+seam: series prd-nerf-bench-review-2026-09-13, phase 1 of 1
+supersedes: R-06 text; R-06 cell description; R-28 text; R-28 cell description
+The run executes the OFFICIAL repository's reusable workflow at a published commit; a contributor's copy holds only a thin caller. R-06 now reads: every run's result file MUST carry a signed attestation whose signer identity is the official repository's reusable workflow at a published commit, produced on a GitHub-hosted runner, and which `gh attestation verify` accepts. R-28 now reads: the site MUST accept a result only when verification confirms signer workflow, signer repository and source commit against the published list, and MUST refuse self-hosted-runner provenance (`--deny-self-hosted-runners`) and any result whose recorded task-set fingerprint (R-68) or scorer commit is not an official one. R-28's cell adds three negative controls, each run live from the test contributor account and each of which MUST be refused: a caller that alters checkout inputs, a caller on a self-hosted runner, and a replayed artifact from an earlier run.
+
+**Amendment 2: series key includes the app (H-b).**
+seam: series prd-nerf-bench-review-2026-09-13, phase 1 of 1
+supersedes: R-26 text; R-26 cell description
+R-26 now reads: every series MUST be keyed by app, model, effort, access path and app track, and the statistics MUST NOT aggregate across keys. The cell adds a fixture pair differing only in app (Codex CLI and Codex Windows app) and fails unless they land in separate series with separate baselines and verdicts.
+
+**Amendment 3: the Verification world names three deployments (H-c).**
+seam: series prd-nerf-bench-review-2026-09-13, phase 1 of 1
+supersedes: N-03 cell description
+This replaces the Verification world paragraph above, which stays for the record. Three deployments: (1) private staging with real dry-run data, never public, authenticated, where every cell that needs a REAL run keeps its proof: R-41's real run record, R-42's real cards, R-43's real click path, R-31, R-32; (2) a disposable PUBLIC verification deployment holding synthetic identities and fixture data only, for the cells whose subject is publication or navigation over seeded or lifecycle data: R-17, R-20, R-50 to R-53, R-56 to R-59, N-09, N-11, plus unauthenticated counterparts of R-42's and R-43's navigation; (3) disposable copies of staging for R-63, R-64, R-65 and N-14. Each cell names which of the three it runs against; no real-run proof is replaced by a fixture, and fixture data never enters (1). N-14 holds because (2) carries no dry-run run. Live probe tasks (R-09) and synthetic fixture tasks are disjoint from benchmark sets by id and text. A benchmark set keeps its identity and content through retirement; active and retired are mutually exclusive statuses at the evaluated time, so N-03's cell searches the sets active or in overlap at that time, and R-17's publication of a set that has just retired is not an N-03 match. The rest of the original paragraph still holds, except three sentences: the R-29 sentence, replaced by Amendment 22; the R-66 sentence, retired by Amendment 7; and the fixture-store sentence, whose "never reaches the staging or public data" now means fixture data never reaches staging (1), its copies (3) or the production public site, while deployment (2) holds fixture data only by design. The simultaneity criterion is one `prd-verify.cjs` invocation exiting 0 over this world.
+
+**Amendment 4: the standalone verifier and hidden tasks (H-d).**
+seam: series prd-nerf-bench-review-2026-09-13, phase 1 of 1
+supersedes: R-57 text; R-57 cell description
+R-57 now reads: a standalone verifier in the public repository MUST, for any published run and without contacting the site, check the signature and recompute the score from the attested per-task pass flags; for runs whose task set has retired it MUST additionally regrade every answer against the now-public checks; its output MUST state which of the two it performed. Cell: one retired-set run fully regraded and matched; one current-set run whose signature verifies, whose attested-flag recount matches, and whose output states that regrading follows retirement. Nothing is trusted from the site (D-44); full regrading arrives at retirement, as D-28 schedules.
+
+**Amendment 5: every-app claims are checked in every app (H-e).**
+seam: series prd-nerf-bench-review-2026-09-13, phase 1 of 1
+supersedes: R-07 cell description; R-09 cell description; N-01 cell description; R-29 cell description; R-30 cell description
+Each of these cells iterates every launch app (the five of D-36) and fails on any app that does not pass. R-07's and N-01's cells each add a dirty-configuration negative control per app; R-09's live fetch attempt runs in each app. R-29's per-app scope is limited by Amendment 22.
+
+**Amendment 6: desktop apps run on GitHub-hosted runners (H-f).**
+seam: series prd-nerf-bench-review-2026-09-13, phase 1 of 1
+supersedes: R-04 text; R-05 text; R-27 cell description
+R-04 now reads: a Codex Windows app run MUST complete unattended on a GitHub-hosted Windows runner under R-01's conditions, driving the desktop app itself rather than the CLI. R-05 now reads: a Claude desktop app run MUST complete unattended on a GitHub-hosted runner of an operating system the app ships for, named in the run record, under R-01's conditions, driving the desktop app itself. Phase 1 FAILS if either desktop app cannot complete on a GitHub-hosted runner; a pass anywhere else is not a pass. R-27's cell drives the README flow once per launch app (five runs) from the test contributor account and fails on any app whose result lacks a valid attestation. No claim is made about GitHub's default runner operating system.
+
+**Amendment 7: R-66 retired (H-g).**
+seam: series prd-nerf-bench-review-2026-09-13, phase 1 of 1
+retired: R-66
+R-66 re-executed every live cell (model runs, contributor runs, votes, retirement, the release switch) a second time under the outer scorer's per-cell bound. Simultaneity is instead the standing completion condition stated at the top of this PRD: one `prd-verify.cjs` invocation exiting 0 over the world in Amendment 3, each live cell running once.
+
+**Amendment 8: every run uses the one official task store (H-h).**
+seam: series prd-nerf-bench-review-2026-09-13, phase 1 of 1
+Adds R-68 and N-15, phase 3. This closes the input-binding half of Amendment 1. Series are NOT split by task set: R-16's overlap normalization bridges consecutive sets on one chart. "Same store" does not mean one hash for every run on a day.
+
+**R-68.** Every run, floor or contributor, MUST fetch its task set or sets at run start from the one private task store the official reusable workflow reads, as that store serves them for the run's model (cutoff eligibility, rotation and overlap), and its result MUST record each set's id, version and fingerprint (R-15). The site MUST refuse a result whose fingerprint the store did not serve as active or overlap for that model at the run's recorded start (D-11, D-15, D-23).
+phase: 3
+touches: runner/tasks; site/accept
+needs: R-15, R-28
+cell: `node prd-cells/R-68.cjs` exits 0; it fails unless a result carrying a foreign fingerprint is refused, a floor run and a test-contributor run of the same model started together both carry fingerprints the store served for that model, and a fixture rotation leaves one continuous series.
+
+**N-15.** A contributor run MUST NOT execute any task set the official store does not serve for that model at run start; there is no separate public community set (D-11, D-23).
+phase: 3
+touches: runner/tasks
+needs: R-68
+cell: `node prd-cells/N-15.cjs` exits 0; it fails unless a test-contributor run whose caller names a set the store did not serve for that model is refused before any task runs.
+
+**Amendment 9: the floor runs both app tracks (H-i, Vince's answer during review).**
+seam: series prd-nerf-bench-review-2026-09-13, phase 1 of 1
+supersedes: R-36 text; R-36 cell description; R-30 text
+Vince, 2026-09-13: "both tracks, and that's available to me AND community. community can choose frozen or latest when they do their run". R-36 now reads: the floor MUST run each lab's newest flagship on BOTH app tracks, latest and frozen, more than once a day at different hours. Cell: a day of floor runs fails unless each floor model has runs on both tracks, each started at different hours. R-30's text gains "chosen per run by the contributor". R-38's equal daily count applies to the doubled schedule.
+
+**Amendment 10: hand-picked task selection (M-a).**
+seam: series prd-nerf-bench-review-2026-09-13, phase 1 of 1
+Adds R-69, phase 2, binding D-13's "then hand-picked".
+
+**R-69.** A task set MUST be activated only from a committed selection record naming the chosen candidate ids at their exact versions and the selector, dated before activation; selecting every candidate is allowed (D-13).
+phase: 2
+touches: tasks/selection; runner/tasks
+needs: R-12
+cell: `node prd-cells/R-69.cjs` exits 0; it fails unless every task in every active set appears, at the recorded version, in a selection record whose commit predates the set's activation, and an attempt to activate a set with no selection record is refused.
+
+**Amendment 11: every tier in the catalog (M-b).**
+seam: series prd-nerf-bench-review-2026-09-13, phase 1 of 1
+supersedes: R-34 text; R-34 cell description
+R-34 now reads: the supported list of apps and models MUST be one configuration Vince controls; it MUST carry non-flagship tiers as their own entries with their own series and MUST NOT be restricted to flagships; any listed model MUST be runnable by any contributor at any listed effort (D-26, D-27). The cell adds a fixture non-flagship entry and fails unless it is selectable and lands in its own series. Which tiers exist at launch follows D-37; no list is invented here.
+
+**Amendment 12: Vince's concept pick has an independent source (M-c).**
+seam: series prd-nerf-bench-review-2026-09-13, phase 1 of 1
+supersedes: R-11 cell description
+The ledger entry recording Vince's pick MUST quote it verbatim, bind it to the chosen concept file's hash, and name its source outside this PRD: the session transcript or message receipt in which he gave it (session id plus message id, or the discussion log line if asked there). `design/chosen.json` (concept id, hash, date, quote, source reference) mirrors it. The cell fails unless the entry exists, the quoted text is found verbatim in the named source (read through the transcripts tool or the message store, never from this PRD), the source predates the entry, chosen.json matches, the hash matches a file under `design/concepts/`, and the entry's commit predates the first commit under `site/` other than `site/methodology` and `site/data`. A quote with no independent source, or one its source does not contain, fails.
+
+**Amendment 13: the rotation interval is a labelled default (M-d).**
+seam: series prd-nerf-bench-review-2026-09-13, phase 1 of 1
+supersedes: R-18 text; R-18 cell description
+R-18 now reads: the rotation interval MUST be one published setting, chosen by the build as an operational default within amendment A1's "rotate faster", and labelled as the build's choice on the methodology page and in the ledger entry that records it. There is no propose-and-approve gate. Cell: the setting exists and the methodology page shows its value and the label. Vince may override it by amendment at any time.
+
+**Amendment 14: the frozen schedule is a labelled default, proved by simulation (M-e).**
+seam: series prd-nerf-bench-review-2026-09-13, phase 1 of 1
+supersedes: R-30 cell description
+The frozen-version schedule is one published setting chosen by the build as an operational default, labelled as such, same shape as Amendment 13. R-30's cell gains simulated controls, not git history alone: before the due date the pinned version does not move; at the due date it advances and carries its R-47 marker; after it, it holds; and an off-schedule change to `config/frozen-versions` is refused or does not take effect in the runner.
+
+**Amendment 15: Grok Build grounding corrected (M-f).**
+seam: series prd-nerf-bench-review-2026-09-13, phase 1 of 1
+The Grounding line on xAI's tool now reads: x.ai/news/grok-build-cli names the tool "Grok Build", describes a headless `-p` mode, and makes it available to "all SuperGrok and X Premium Plus subscribers". The Apache 2.0 licence and repository claims are withdrawn; no source was cited for them. R-03 is unchanged.
+
+**Amendment 16: baseline anchored to the official release (M-g).**
+seam: series prd-nerf-bench-review-2026-09-13, phase 1 of 1
+supersedes: R-63 cell description; N-14 cell description
+The baseline window and public eligibility are anchored to the model's official release timestamp (the R-45 marker source), not the switch time. The cell runs the switch one day after a fixture release and fails unless the baseline window starts at the release timestamp, the flagship is eligible, and the hours before the switch show as absent rather than as invented points. R-64 (floor starts on release day) is proved independently of the switch, so a late switch loses nothing the floor captured.
+
+**Amendment 17: the methodology page is reachable and first (M-h).**
+seam: series prd-nerf-bench-review-2026-09-13, phase 1 of 1
+supersedes: R-20 text; R-20 cell description
+R-20 gains: the methodology page MUST be reachable by click from the home page and MUST be published before the first public result. The cell navigates from home on deployment (2) of Amendment 3 and compares the page's first deploy or commit timestamp with the earliest public result, besides its original D-35 check.
+
+**Amendment 18: the two disclosures, split per requirement (M-i).**
+seam: series prd-nerf-bench-review-2026-09-13, phase 1 of 1
+supersedes: R-08 cell description; R-09 text; R-09 cell description
+Exactly two clean-run deviations stay disclosed (D-20: "the only two deviations"). R-08's cell asserts "commands auto-approved" is present and that no deviation entry other than the two permitted strings appears. R-09's text gains "and every run record MUST state 'web access blocked'", and its cell asserts that string beside the live refusal.
+
+**Amendment 19: task count wording (M-j).**
+seam: series prd-nerf-bench-review-2026-09-13, phase 1 of 1
+supersedes: R-13 text
+R-13 now reads: each active task set MUST hold roughly 50 to 100 tasks (D-12); the cell reads 50 to 100 inclusive as the build's operational bound within that band. The cell is unchanged.
+
+**Amendment 20: the home card uses the default-effort series (M-k).**
+seam: series prd-nerf-bench-review-2026-09-13, phase 1 of 1
+supersedes: R-42 text; R-42 cell description
+R-42 gains: each card's comparison and verdict MUST use the default-effort series (D-19), on the subscription path and the latest track as the shipped default, with the model page's existing selector as the control for every other series. The cell adds a competing non-default series with the opposite trend and fails if the card shows it. Vince may override the default by amendment.
+
+**Amendment 21: contributors are told each lab's terms (M-l).**
+seam: series prd-nerf-bench-review-2026-09-13, phase 1 of 1
+supersedes: R-67 text
+Adds R-70, phase 3. R-67 now reads: before the release switch runs, `research/terms.md` MUST quote Anthropic's subscription OAuth "ordinary use" clause and its clause on measures taken without prior notice, beside OpenAI's and xAI's clauses on automated use of their subscription tools, with any clause that forbids the floor or the contributor flow put to Vince before launch. No waiver or acceptance step is invented.
+
+**R-70.** The README MUST state, per lab, what that lab's terms say about subscription use in automation, quoting `research/terms.md`, so a contributor runs on their own account informed (D-23, D-34).
+phase: 3
+touches: README.md; research/terms.md
+needs: R-67
+cell: `node prd-cells/R-70.cjs` exits 0; it fails unless the README carries one section per launch lab and every quoted clause in it appears verbatim in `research/terms.md`.
+
+**Amendment 22: no API spend by Vince, API path gated (Vince's answer during review).**
+seam: series prd-nerf-bench-review-2026-09-13, phase 1 of 1
+supersedes: R-29 text; R-29 cell description
+Asked whether the dry run may spend on his own API keys for the five per-app API-path proofs, Vince chose "Wait for someone else's keys" (discussion context, amendment A3 to D-43). R-29 now reads: a run MUST support both access paths, subscription sign-in and API key, and record which it used; the dry run proves the subscription path in every launch app, and no API key paid by Vince is used for any run, verification included. R-29's cell reads one real subscription run per launch app and fails unless each completed and its record names its path correctly, and it reads the API path's recording from R-71's fixtures. Adds R-71, phase 3. D-43's "ready to flip" therefore excludes the API path: each app's API path is proved once a key not paid by Vince exists, and until then the site accepts no API-path result for that app. The Verification world's sentence pairing R-39 with R-29's API run is replaced: R-39 and R-29 hold together because no API run happens in the world.
+
+**R-71.** The site MUST refuse an API-path result for an app until that app's API path has been proved by a real run on a key not paid by Vince. The proof record MUST reference that run's attested result digest, and the site MUST check that the referenced run verifies under R-28, is for that same app, used the API access path, and that the record names who supplied and who pays for the key, neither being Vince (D-09, D-39, amendment A3 to D-43).
+phase: 3
+touches: site/accept; config/api-proofs
+needs: R-28, R-29
+cell: `node prd-cells/R-71.cjs` exits 0; on fixtures it fails unless an API-path result for an app with no proof record is refused; the same result is accepted once a valid proof record for that app exists; and each of these proof records is rejected: one whose referenced digest does not verify (forged), one referencing another app's run (mismatched app), one referencing a subscription-path run, and one naming Vince as supplier or payer.

@@ -519,6 +519,32 @@ Found while drafting: D-11 ("contributors never see them") and D-23 (contributor
 **User's choice:** Accept it, rotate faster, say so (Recommended)
 **Notes:** Amends D-11 (see context file, D-11 amendment A1). No rotation interval was chosen.
 
+## During the PRD review: which app track the floor runs
+
+Raised by the fable seat (floor-track), run c-mu06ff7r-mfcm66.
+
+| Option | Description | Selected |
+|--------|-------------|----------|
+| Both tracks (Recommended) | Floor runs each flagship on latest and frozen; roughly doubles floor runs | X |
+| Latest only | Frozen line community-only | |
+| Frozen only | Latest line community-only | |
+
+**User's choice (typed):** "both tracks, and that's available to me AND community. community can choose frozen or latest when they do their run"
+**Clauses:** (a) the floor runs both tracks; (b) contributors choose latest or frozen per run. Clause (b) was already implied by D-10 and R-30; now explicit.
+
+## During the PRD review: who pays for the API-path proofs
+
+Raised by the seats' joint proposal (V1, api-key-owner), run c-mu06ff7r-mfcm66.
+
+| Option | Description | Selected |
+|--------|-------------|----------|
+| My keys, sized first (Recommended) | Dry run uses Vince's own API keys for the five per-app proofs, cost shown first, recorded as verification spend | |
+| Wait for someone else's keys | No API spend by Vince at all; API path unproven until a donor or contributor key exists; launch not fully ready for API runs | X |
+| Launch API path unproven | Drop the API proofs; first real API run is the first test | |
+
+**User's choice:** Wait for someone else's keys.
+**Notes:** Amends D-43 (done means): the dry run proves the subscription path only; the API path is proved per app once a non-Vince key exists, and until then the site accepts no API-path result. D-39 is unchanged and now covers verification runs too.
+
 ---
 
 ## Claude's Discretion

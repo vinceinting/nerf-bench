@@ -27,6 +27,17 @@ Session cd1ada70-cd9a-4c2c-992b-96b26ec3392e, /discuss, started 2026-09-12 22:35
 - Vince: 01a09912 came up on Qwen; must be Astra medium (gpt-6-astra, thinking medium, id read from session 02d75f3b). Asked 01a0990f to archive 01a09912 and recreate in the nerf-bench project with model/thinking set (accepted, exit 0). Sent steward (14839687-65c8-4e33-9caa-4ddc45b45c48, resolved via steward.cjs) a request: codex.cjs default model astra medium + project targets matching caller folder. msg_id 9760fb37-ff3f-49b5-b416-20da900c013c. Steward registered R687 (default model) + R679 (project target).
 - Vince archived 01a09912 himself. 01a0990f had not created a replacement. Ran .planning/research/codex-create-astra.cjs (02d75f3b pattern): created 01a09918-feab-70f3-b44c-5a5d6e2eb95d in nerf-bench project (local), model gpt-6-astra thinking medium; archived scratch 01a0990f. exit 0.
 
+## PRD and review (2026-09-13)
+- PRD: .planning/prd/2026-09-13-nerf-bench-prd.md, 81 requirements, 5 phases, committed 3c23b4c; prd-verify: 0 passed, 81 failed at birth.
+- Grounding: xAI tool = Grok Build (secondary sources); desktop apps share engines with CLIs (secondary sources).
+- Amendment A1 to D-11 (Vince): accept contributor task leak, rotate faster, state it.
+- Review brief .planning/review/2026-09-13-prd-review-brief.md passed seam-brief-check --last.
+- Seats launched, window 40872: astra medium session 5891eaad-229b-4797-aeff-912b16b954fb tab "astra . nerf-bench"; fable medium session 376f4e1b-52ae-4839-97e2-ea477e79c568 tab "claude . nerf-bench 2"; grok low session c29e8493-238c-4a36-a703-a99776ac7fd1 tab "grok . nerf-bench". Series prd-nerf-bench-review-2026-09-13.
+
+- Floor-track: Vince "both tracks ... community can choose frozen or latest" (log, context A2 under D-10).
+- Round 1 agreed by all seats, digest 89c6f69098120b29 (.planning/review/joint-proposal-round-1.md). V1 put to Vince: "Wait for someone else's keys" (log, context A3 under D-43).
+- Amendments 1 to 22 landed in the PRD ledger; new R-68..R-71, N-15; R-66 retired. prd-verify: 0/85 live, 1 retired, no refusal. Disposition cb73c25340140151 (.planning/review/disposition-round-1.md) proposed and sent to all seats; waiting for agreements.
+
 ## Official terms read (code.claude.com/docs/en/legal-and-compliance)
 - Subscription OAuth is "designed to support ordinary use of Claude Code"; third parties may not "route requests through Free, Pro, or Max plan credentials on behalf of their users" or "collect, store, or intermediate Claude.ai credentials".
 - Hosting Claude Code in sandboxes/agent infrastructure is allowed under Commercial Terms if the binary is unmodified and each end user authenticates with their own key or subscription, billed to them. Relevant to Area 6/7: a hosted community runner is permitted only if each contributor signs in themselves through Anthropic's flow; the site must never hold their credentials.
