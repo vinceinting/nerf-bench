@@ -1,0 +1,58 @@
+# nerf-bench caller. Copy this file to .github/workflows/nerf-bench-run.yml in your own copy of the
+# project. It only calls the official workflow; the official workflow does the run and signs it.
+# The model and effort choices below must match config/catalog.json (the R-34 check enforces it).
+name: nerf-bench run
+
+on:
+  workflow_dispatch:
+    inputs:
+      app:
+        type: choice
+        options: [claude-code, codex-cli, grok-build, codex-desktop, claude-desktop]
+      model:
+        type: choice
+        options: [claude-opus-5]
+      effort:
+        type: choice
+        default: default
+        options: [default, low, medium, high, xhigh, max]
+      track:
+        type: choice
+        default: latest
+        options: [latest, frozen]
+      access_path:
+        type: choice
+        default: subscription
+        options: [subscription, api]
+      account_source:
+        type: choice
+        default: contributor-owned
+        options: [contributor-owned, self-paid, donated]
+      task_set:
+        description: leave empty; a set the official store does not serve for the model is refused
+        type: string
+        default: ''
+
+permissions:
+  contents: read
+  id-token: write
+  attestations: write
+
+jobs:
+  run:
+    uses: vinceinting/nerf-bench/.github/workflows/run.yml@main
+    with:
+      app: ${{ inputs.app }}
+      model: ${{ inputs.model }}
+      effort: ${{ inputs.effort }}
+      track: ${{ inputs.track }}
+      access_path: ${{ inputs.access_path }}
+      account_source: ${{ inputs.account_source }}
+      task_set: ${{ inputs.task_set }}
+    secrets:
+      CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      CODEX_AUTH_JSON: ${{ secrets.CODEX_AUTH_JSON }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      GROK_AUTH_JSON: ${{ secrets.GROK_AUTH_JSON }}
+      XAI_API_KEY: ${{ secrets.XAI_API_KEY }}

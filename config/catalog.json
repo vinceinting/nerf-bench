@@ -1,0 +1,59 @@
+{
+  "label": "The one supported list of apps and models (R-34). Vince controls this file. Non-flagship tiers are their own entries with their own series (Amendment 11). Which tiers exist at launch follows D-37; entries are added here, never invented by the build.",
+  "apps": {
+    "claude-code": {
+      "lab": "anthropic",
+      "os": "linux",
+      "installer": {
+        "latest": "curl -fsSL https://claude.ai/install.sh | bash",
+        "pinned": "curl -fsSL https://claude.ai/install.sh | bash -s {version}"
+      },
+      "efforts": ["default", "low", "medium", "high", "xhigh", "max"],
+      "efforts_source": "claude --help, version 2.1.270: --effort (low, medium, high, xhigh, max). 'default' passes no flag."
+    },
+    "codex-cli": {
+      "lab": "openai",
+      "os": "linux",
+      "installer": {
+        "latest": "npm install -g @openai/codex@latest",
+        "pinned": "npm install -g @openai/codex@{version}"
+      },
+      "efforts": ["default", "low", "medium", "high"],
+      "efforts_source": "codex exec -c model_reasoning_effort=<value>; values low, medium, high. 'default' passes no override."
+    },
+    "grok-build": {
+      "lab": "xai",
+      "os": "linux",
+      "installer": {
+        "latest": "curl -fsSL https://x.ai/cli/install.sh | bash",
+        "pinned": "curl -fsSL https://x.ai/cli/install.sh | bash -s {version}"
+      },
+      "installer_source": "Grok Build's own README (installed copy, version 1.0.5), Installation section.",
+      "efforts": ["default"],
+      "efforts_source": "grok --help lists --reasoning-effort but not its values; only the app default is listed until the values are read from the vendor."
+    },
+    "codex-desktop": {
+      "lab": "openai",
+      "os": "windows",
+      "installer": { "latest": null, "pinned": null },
+      "installer_source": "UNREAD: the official unattended installer for the Codex Windows app has not been read. Runs of this app are refused until it is filled in.",
+      "efforts": ["default"]
+    },
+    "claude-desktop": {
+      "lab": "anthropic",
+      "os": "windows",
+      "installer": { "latest": null, "pinned": null },
+      "installer_source": "UNREAD: the official unattended installer for the Claude desktop app has not been read. Runs of this app are refused until it is filled in.",
+      "efforts": ["default"]
+    }
+  },
+  "models": [
+    {
+      "id": "claude-opus-5",
+      "lab": "anthropic",
+      "tier": "flagship",
+      "vendor_model": "claude-opus-5",
+      "apps": ["claude-code", "claude-desktop"]
+    }
+  ]
+}

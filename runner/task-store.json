@@ -1,0 +1,5 @@
+{
+  "url": null,
+  "audience": "nerf-bench-task-store",
+  "note": "The one private task store the official reusable workflow reads (R-68). It is not deployed yet; until url is set, every run refuses to start. The store must accept only GitHub OIDC tokens whose job_workflow_ref is vinceinting/nerf-bench/.github/workflows/run.yml at a published commit."
+}
