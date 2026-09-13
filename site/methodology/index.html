@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Methodology</title>
+<style>
+  body { font: 16px/1.55 system-ui, sans-serif; max-width: 44rem; margin: 2rem auto; padding: 0 1rem; color: #1a1a1a; }
+  h1 { font-size: 1.6rem; } h2 { font-size: 1.15rem; margin-top: 2rem; }
+  .setting { font-weight: 600; }
+  .label { color: #555; font-size: 0.95rem; }
+</style>
+</head>
+<body>
+<main>
+<h1>Methodology</h1>
+<p>This page says how every result on this site is produced, and what no outside benchmark can rule out. It is published before the first public result.</p>
+
+<h2 id="clean-runs">How a run is made</h2>
+<p>Every run installs the vendor's official app on a fresh, throwaway GitHub-hosted machine, with the vendor's default settings and nothing added: no instruction files, add-ons, hooks or scripts. Each run carries a signed attestation that binds its result file to the official workflow at a published commit of the public repository.</p>
+<p id="deviations">A run differs from a fresh install in exactly two ways, and every run record states both:</p>
+<ul>
+  <li><strong>commands auto-approved</strong>: the agent's commands run without a person approving each one, because the machine is sealed and discarded after the run.</li>
+  <li><strong>web access blocked</strong>: the agent cannot reach the internet during the run.</li>
+</ul>
+
+<h2 id="tasks">The tasks</h2>
+<p>Each run is a set of roughly 50 to 100 real coding tasks taken from bug fixes in open-source projects, merged after the model's published knowledge cutoff. Each task passes or fails on an automatic check. No person and no AI model grades anything.</p>
+<p>The current task set is kept hidden from the public and from training data. A fingerprint of each set is published before its first result, and anyone can recompute it once the set retires.</p>
+<p id="contributor-can-read"><strong>A determined contributor can read the current task set.</strong> Contributors run the benchmark in their own copy of the project, under their own account, and can read what runs there. That is why the sets rotate faster than they otherwise would.</p>
+<p id="signature-prevents-faking"><strong>The signature still prevents faked results.</strong> Reading the tasks does not let anyone forge a result: only a run of the official, unmodified workflow produces a result whose signature verifies, and the site accepts nothing else.</p>
+
+<h2 id="rotation">Rotation</h2>
+<p>Task sets rotate every <span class="setting" id="rotation-interval-days">28</span> days. For <span class="setting" id="rotation-overlap-days">7</span> days the outgoing and incoming sets both run, so each chart bridges the change. Every rotation appears as a marker on the charts it affects.</p>
+<p class="label" id="rotation-label">The build's choice, an operational default within amendment A1's &quot;rotate faster&quot;. Vince has not set it and may override it by amendment.</p>
+<p>When a set retires, its tasks and every past answer to them are published in full, and stay published.</p>
+
+<h2 id="tracks">App versions</h2>
+<p>Each model is measured on two app tracks. "Latest" installs whatever version the vendor currently ships. "Frozen" holds one version fixed and advances it only on a published schedule, set in <code>config/frozen-versions</code>. Every move of a frozen version appears as a chart marker.</p>
+<p class="label" id="frozen-schedule-label">The build's choice, an operational default (Amendment 14). Vince has not set it and may override it by amendment.</p>
+
+<h2 id="statistics">Statistics</h2>
+<p>A change is called only when it clears the statistical rule published, dated, in the public repository before any data existed: <a href="https://github.com/vinceinting/nerf-bench/blob/main/stats/RULE.md">stats/RULE.md</a>. Every chart shows a confidence band, and anything inside it reads "within normal variation". Each model is compared against its own launch week: its first 7 days after release, pooled and then frozen. Day one is shown as its own point.</p>
+<p>Series are never combined: each app, model, effort level, access path and app track is its own line.</p>
+
+<h2 id="cost">Cost</h2>
+<p id="subscription-no-cost">Runs on the subscription path (signed in with a paid plan rather than an API key) carry no cost figure, because a flat monthly plan has no per-run price. Only API-key runs show a cost.</p>
+
+<h2 id="limits">What no outside benchmark can rule out</h2>
+<p id="content-recognition-limit"><strong>Special handling based on a lab recognizing the tasks' content cannot be ruled out by any outside benchmark, this one included.</strong> A lab that recognizes the tasks could treat them differently from ordinary use. Running from many contributors' accounts and rotating the tasks limits this; nothing eliminates it.</p>
+
+<h2 id="markers">Chart markers</h2>
+<p>Markers come only from official sources and are added automatically: app releases from each vendor's release feed, model releases from each lab's announcements, incidents from each lab's status page, frozen version moves, task rotations, a lab's own public statements, and model retirement. None is editorial and none is submitted by the community.</p>
+
+<h2 id="verify">Checking a result yourself</h2>
+<p>The standalone verifier in the public repository (<code>tools/verify</code>) checks any published run's signature and recounts its score from the signed per-task results, without contacting this site. For runs whose task set has retired, it also regrades every answer against the now-public checks, and says which of the two it did.</p>
+</main>
+</body>
+</html>

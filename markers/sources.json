@@ -1,0 +1,30 @@
+{
+  "_comment": "Official sources the marker jobs read. null means no official feed is known yet; the job reports it rather than guessing. Probed 2026-09-13.",
+  "app_releases": {
+    "claude-code": { "kind": "npm", "package": "@anthropic-ai/claude-code" },
+    "codex-cli": { "kind": "github-releases", "repo": "openai/codex", "tag_prefix": "rust-v" },
+    "grok-build": null,
+    "codex-desktop": null,
+    "claude-desktop": null
+  },
+  "app_release_gaps": {
+    "grok-build": "github.com/xai-org/grok-build has no published releases and npm has no grok-build package (checked 2026-09-13); Amendment 15 withdrew the repository claim.",
+    "codex-desktop": "no public release feed for the Codex Windows app found yet.",
+    "claude-desktop": "no public release feed for the Claude desktop app found yet."
+  },
+  "model_releases": {
+    "anthropic": { "kind": "anthropic-news-html", "url": "https://www.anthropic.com/news", "base": "https://www.anthropic.com", "title_pattern": "^(Introducing )?Claude (Opus|Sonnet|Haiku|Fable|Mythos) [0-9][0-9.]*$" },
+    "openai": { "kind": "rss", "url": "https://openai.com/news/rss.xml", "title_pattern": "^(Introducing )?GPT-[0-9][0-9.]*( [A-Z][a-z]+)?($|:)" },
+    "xai": { "kind": "xai-news-html", "url": "https://x.ai/news", "base": "https://x.ai", "title_pattern": "^(Introducing |Announcing )?Grok [0-9]" }
+  },
+  "status_pages": {
+    "anthropic": { "kind": "statuspage-v2", "url": "https://status.claude.com/api/v2/incidents.json", "base": "https://status.claude.com" },
+    "openai": { "kind": "statuspage-v2", "url": "https://status.openai.com/api/v2/incidents.json", "base": "https://status.openai.com" },
+    "xai": { "kind": "statuspage-v2", "url": "https://status.x.ai/api/v2/incidents.json", "base": "https://status.x.ai" }
+  },
+  "known_model_releases": [
+    { "lab": "anthropic", "source_url": "https://www.anthropic.com/news/claude-opus-5" },
+    { "lab": "openai", "title_contains": "GPT-6 Astra" },
+    { "lab": "xai", "title_contains": "Grok" }
+  ]
+}
