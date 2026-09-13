@@ -31,6 +31,7 @@ A public website that measures whether frontier AI models' real-world performanc
 
 ### 3. The tests
 - **D-11:** The task set is hidden: delivered only inside the sealed run, never shown to contributors. A fingerprint of the set is published on day one. Tasks rotate out on a schedule; each rotation overlaps the old set for a period to bridge the chart; retired tasks are published in full with every past answer.
+  - *Amendment A1 to D-11, 2026-09-13, during /prd drafting:* under D-23 a contributor owns their copy's settings and logs, so "never shown to contributors" cannot be guaranteed. Vince chose: keep both D-11 and D-23; the methodology page states that a determined contributor can read the current tasks; tasks rotate faster to limit a leak's life; results stay unforgeable because the signature covers them. "Hidden" now means hidden from the public and from training data, not from every contributor. No rotation interval was chosen.
 - **D-12:** Each run is a set of roughly 50 to 100 real coding tasks, each passing or failing on automatic checks (for example, tests pass). No human or AI judge. This replaces the opening brief's single fixed prompt.
 - **D-13:** Tasks come from real bug fixes in open-source projects dated after a model's knowledge cutoff, checked automatically and then hand-picked. This is also the supply for rotation.
 

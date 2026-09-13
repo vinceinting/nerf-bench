@@ -506,6 +506,19 @@ Build contract offer (step 9b) got a question instead: "should we /design-crest 
 **User's choice:** PRD now, design as its first phase (Recommended)
 **Notes:** Recorded as D-46. Answers the 9b offer as yes (cut the PRD).
 
+## During /prd drafting: hidden tasks vs contributor-owned runs
+
+Found while drafting: D-11 ("contributors never see them") and D-23 (contributor runs their own GitHub copy, owning its settings and logs) cannot both hold in full. The stem named Claude's earlier claim as wrong.
+
+| Option | Description | Selected |
+|--------|-------------|----------|
+| Accept it, rotate faster, say so (Recommended) | Keep both; methodology states a determined contributor can read current tasks; faster rotation; results still unforgeable | X |
+| Hidden tasks only in your floor | Community on a separate public set | |
+| Site-hosted runs instead | One-click, site owns machines | |
+
+**User's choice:** Accept it, rotate faster, say so (Recommended)
+**Notes:** Amends D-11 (see context file, D-11 amendment A1). No rotation interval was chosen.
+
 ---
 
 ## Claude's Discretion

@@ -1,0 +1,3 @@
+// R-02: stub emitted with the PRD. It fails until the build replaces it with the real check.
+console.error('R-02: not built yet');
+process.exit(1);
