@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Concept B: Driftwatch, Public Record</title>
+<style>
+:root {
+  --bg: #eef1ef; --surface: #f8faf9; --ink: #1c1b18; --muted: #55524a; --line: #cfc9bb;
+  --accent: #1d5c46; --band: #1d5c46; --band-fill: rgba(29,92,70,0.15); --base: #7a2e1f;
+  --serif: Georgia, "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
+  --sans: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #181713; --surface: #211f1a; --ink: #eeeae0; --muted: #b5afa1; --line: #3a372f;
+    --accent: #7fcaa9; --band: #7fcaa9; --band-fill: rgba(127,202,169,0.18); --base: #f0a08c;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #181713; --surface: #211f1a; --ink: #eeeae0; --muted: #b5afa1; --line: #3a372f;
+  --accent: #7fcaa9; --band: #7fcaa9; --band-fill: rgba(127,202,169,0.18); --base: #f0a08c;
+}
+* { box-sizing: border-box; }
+html { background: var(--bg); color: var(--ink); font: 17px/1.6 var(--sans); }
+body { margin: 0; }
+::selection { background: var(--accent); color: var(--surface); }
+a { color: var(--accent); text-underline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.wrap { max-width: 1000px; margin: 0 auto; padding: 28px 24px 64px; }
+header { display: flex; align-items: center; justify-content: space-between; gap: 16px; border-bottom: 3px double var(--line); padding-bottom: 18px; }
+.brand { display: flex; align-items: center; gap: 12px; }
+.brand span { font-family: var(--serif); font-size: 1.6rem; font-weight: 700; }
+button.theme { font: inherit; font-size: 0.85rem; background: transparent; color: var(--ink); border: 1px solid var(--line); border-radius: 2px; padding: 6px 12px; cursor: pointer; }
+button.theme:hover { border-color: var(--ink); }
+h1, h2, h3 { font-family: var(--serif); font-weight: 700; }
+h1 { font-size: 2.5rem; line-height: 1.12; margin: 40px 0 10px; }
+h2 { font-size: 1.4rem; margin: 48px 0 12px; }
+p { max-width: 66ch; margin: 0 0 12px; }
+.lede { font-family: var(--serif); font-size: 1.15rem; color: var(--muted); }
+.swatches { display: flex; flex-wrap: wrap; gap: 20px; }
+.sw { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; }
+.sw i { width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--line); }
+.sw code { color: var(--muted); }
+.type-row { border-top: 1px solid var(--line); padding: 12px 0; }
+.type-row small { color: var(--muted); display: block; }
+.num { font-variant-numeric: tabular-nums lining-nums; }
+.card { background: var(--surface); border: 1px solid var(--line); padding: 22px; max-width: 460px; }
+.card h3 { margin: 0; font-size: 1.3rem; }
+.card .lab { color: var(--muted); font-size: 0.85rem; margin: 2px 0 14px; }
+.verdict { font-family: var(--serif); font-size: 1.1rem; margin: 14px 0 6px; }
+.meta { color: var(--muted); font-size: 0.8rem; }
+svg.chart { width: 100%; height: auto; display: block; }
+.legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: 0.8rem; color: var(--muted); margin-top: 6px; }
+details { margin-top: 16px; border-top: 1px solid var(--line); padding-top: 10px; }
+summary { cursor: pointer; font-size: 0.9rem; }
+details blockquote { margin: 10px 0 0; padding: 0 0 0 14px; border-left: 1px solid var(--muted); font-family: var(--serif); font-size: 0.95rem; }
+details .src { color: var(--muted); font-size: 0.8rem; margin-top: 6px; }
+ul.voice { padding-left: 20px; max-width: 66ch; font-family: var(--serif); }
+ul.voice li { margin-bottom: 8px; }
+@media (max-width: 560px) { h1 { font-size: 1.9rem; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="brand">
+    <svg width="40" height="40" viewBox="0 0 40 40" role="img" aria-label="Driftwatch logo">
+      <circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="2"/>
+      <circle cx="20" cy="20" r="11" fill="none" stroke="currentColor" stroke-width="1.2"/>
+      <line x1="20" y1="20" x2="28" y2="10" stroke="#1d5c46" stroke-width="2.5" stroke-linecap="round"/>
+      <circle cx="20" cy="20" r="2.5" fill="currentColor"/>
+    </svg>
+    <span>Driftwatch</span>
+  </div>
+  <button class="theme" type="button" onclick="var r=document.documentElement;r.dataset.theme=(r.dataset.theme==='dark'||(!r.dataset.theme&&matchMedia('(prefers-color-scheme: dark)').matches))?'light':'dark'">Switch light or dark</button>
+</header>
+
+<h1>Concept B: Public Record</h1>
+<p class="lede">Reads like a well-kept public ledger or a newspaper's data desk. Cool grey-green paper, a deep civic green, a serif that signals the page was written by someone accountable for it.</p>
+
+<h2>Name and logo</h2>
+<p>Proposes <strong>Driftwatch</strong> in place of nerf-bench: still light, but it names what is measured (drift from launch) rather than implying a lab did something on purpose. The mark is a gauge with a single needle, the green needle being the only colour in it.</p>
+
+<h2>Colour</h2>
+<div class="swatches">
+  <div class="sw"><i style="background:#1c1b18"></i><span>Ink <code>#1c1b18</code></span></div>
+  <div class="sw"><i style="background:#eef1ef"></i><span>Paper <code>#eef1ef</code></span></div>
+  <div class="sw"><i style="background:#1d5c46"></i><span>Civic green <code>#1d5c46</code></span></div>
+  <div class="sw"><i style="background:#7a2e1f"></i><span>Baseline brick <code>#7a2e1f</code></span></div>
+  <div class="sw"><i style="background:#55524a"></i><span>Muted <code>#55524a</code></span></div>
+</div>
+<p class="meta" style="margin-top:10px">Ink on paper 15.6:1. Green on paper 7.2:1. Brick on paper 8.4:1. Muted on paper 6.9:1.</p>
+
+<h2>Type</h2>
+<div class="type-row"><small>Headings and verdicts: Georgia, the voice of the record</small><div style="font-family:var(--serif);font-size:1.6rem;font-weight:700">Confirmed drop of 7 points</div></div>
+<div class="type-row"><small>Interface and data labels: system sans, the machinery around it</small><div>Default effort, subscription app, 120 tasks</div></div>
+<div class="type-row"><small>Figures: lining, tabular</small><div class="num">71.4% &nbsp; 66.2 to 76.1 &nbsp; n = 120</div></div>
+
+<h2>Home grid card</h2>
+<article class="card">
+  <h3>Model Alpha</h3>
+  <div class="lab">Lab One, default effort, subscription app</div>
+  <svg class="chart" viewBox="0 0 320 150" role="img" aria-label="Pass rate over twelve weeks. Launch week baseline 72 percent. Latest week 65 percent, below the confidence band.">
+    <polygon points="20,48 60,50 100,48 140,54 180,56 220,62 260,66 300,70 300,110 260,104 220,100 180,94 140,90 100,86 60,88 20,86" fill="var(--band-fill)"/>
+    <line x1="20" y1="66" x2="300" y2="66" stroke="var(--base)" stroke-width="1.5"/>
+    <polyline points="20,67 60,69 100,67 140,72 180,75 220,81 260,85 300,90" fill="none" stroke="var(--band)" stroke-width="2"/>
+    <rect x="15" y="62" width="10" height="10" fill="var(--ink)"/>
+    <line x1="20" y1="130" x2="300" y2="130" stroke="var(--line)"/>
+    <text x="20" y="145" font-size="10" fill="var(--muted)">day one</text>
+    <text x="300" y="145" font-size="10" fill="var(--muted)" text-anchor="end">this week</text>
+    <text x="300" y="60" font-size="10" fill="var(--base)" text-anchor="end">launch week 72%</text>
+  </svg>
+  <div class="legend"><span>shaded: 95% band</span><span>brick rule: launch week</span><span>square: day one</span></div>
+  <p class="verdict"><strong>Confirmed drop of 7 points since launch week.</strong></p>
+  <div class="meta"><span class="num">65.0%</span> this week, <span class="num">72.0%</span> launch week. 120 tasks, signed run.</div>
+  <details>
+    <summary>Reply from Lab One, in their own words</summary>
+    <blockquote>We shipped an app update on 2 September that changed the default context window. We are investigating reports of slower responses.</blockquote>
+    <div class="src">Hosted verbatim, unedited. This is the lab's statement, not Driftwatch's. <a href="#">Original</a></div>
+  </details>
+</article>
+
+<h2>Verdict voice</h2>
+<ul class="voice">
+  <li>Within normal variation of launch week.</li>
+  <li>Confirmed drop of 7 points since launch week.</li>
+  <li>Confirmed rise of 4 points since launch week.</li>
+  <li>Too few runs this week to say.</li>
+</ul>
+<p>Written like a correction column: the finding first, the number second, nothing about motive.</p>
+
+<h2>Rationale</h2>
+<p>The public already trusts the look of a careful newspaper chart more than the look of a tech dashboard. A serif for the findings and a sans for the machinery separates what the site says from how it measured it. The name change is offered, not required: it removes the one word in the brand that the verdict rules forbid.</p>
+</div>
+</body>
+</html>

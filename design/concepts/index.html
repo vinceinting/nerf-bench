@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Identity concepts: side by side</title>
+<style>
+:root { --bg: #f6f6f4; --ink: #16181c; --muted: #4c525c; --line: #d3d5d9; --link: #1f4f8a; }
+@media (prefers-color-scheme: dark) { :root { --bg: #121418; --ink: #eceef1; --muted: #a9b0bb; --line: #2c313a; --link: #8ab8f2; } }
+* { box-sizing: border-box; }
+html { background: var(--bg); color: var(--ink); font: 16px/1.55 "Segoe UI", system-ui, -apple-system, Arial, sans-serif; }
+body { margin: 0; }
+a { color: var(--link); text-underline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+.wrap { max-width: 1600px; margin: 0 auto; padding: 24px; }
+h1 { font-size: 2.2rem; margin: 0 0 6px; }
+p { max-width: 70ch; margin: 0 0 16px; color: var(--muted); }
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 16px; }
+.col h2 { font-size: 1.3rem; margin: 0 0 8px; }
+iframe { width: 100%; height: 1400px; border: 1px solid var(--line); border-radius: 6px; background: #fff; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>Three identity concepts</h1>
+<p>Each concept is its own page with a light and a dark theme. Open one on its own for full width, or compare them here.</p>
+<div class="cols">
+  <section class="col"><h2><a href="concept-a.html">A: Instrument (nerf-bench)</a></h2><iframe src="concept-a.html" title="Concept A"></iframe></section>
+  <section class="col"><h2><a href="concept-b.html">B: Public Record (Driftwatch)</a></h2><iframe src="concept-b.html" title="Concept B"></iframe></section>
+  <section class="col"><h2><a href="concept-c.html">C: Foam (nerf-bench)</a></h2><iframe src="concept-c.html" title="Concept C"></iframe></section>
+</div>
+</div>
+</body>
+</html>

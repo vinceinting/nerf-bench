@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Concept A: nerf-bench, Instrument</title>
+<style>
+:root {
+  --bg: #f7f7f5; --surface: #ffffff; --ink: #14161a; --muted: #4a505a; --line: #d4d6da;
+  --signal: #b3400a; --band: #1f4f8a; --band-fill: rgba(31,79,138,0.14); --base: #14161a;
+  --sans: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, "Cascadia Mono", Consolas, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #101216; --surface: #171a20; --ink: #eceef1; --muted: #a9b0bb; --line: #2c313a;
+    --signal: #ff8a4c; --band: #7fb0f0; --band-fill: rgba(127,176,240,0.18); --base: #eceef1;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #101216; --surface: #171a20; --ink: #eceef1; --muted: #a9b0bb; --line: #2c313a;
+  --signal: #ff8a4c; --band: #7fb0f0; --band-fill: rgba(127,176,240,0.18); --base: #eceef1;
+}
+* { box-sizing: border-box; }
+html { background: var(--bg); color: var(--ink); font: 16px/1.55 var(--sans); }
+body { margin: 0; }
+::selection { background: var(--band); color: var(--surface); }
+a { color: var(--band); text-underline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--signal); outline-offset: 2px; }
+.wrap { max-width: 1080px; margin: 0 auto; padding: 32px 24px 64px; }
+header { display: flex; align-items: center; justify-content: space-between; gap: 16px; border-bottom: 1px solid var(--line); padding-bottom: 20px; }
+.brand { display: flex; align-items: center; gap: 12px; }
+.brand span { font-weight: 650; font-size: 1.35rem; letter-spacing: -0.01em; }
+button.theme { font: inherit; font-size: 0.875rem; background: transparent; color: var(--ink); border: 1px solid var(--line); border-radius: 4px; padding: 6px 12px; cursor: pointer; }
+button.theme:hover { border-color: var(--ink); }
+h1 { font-size: 2.25rem; line-height: 1.15; letter-spacing: -0.02em; margin: 40px 0 8px; font-weight: 650; }
+h2 { font-size: 1.25rem; margin: 48px 0 12px; font-weight: 650; }
+p { max-width: 68ch; margin: 0 0 12px; }
+.lede { color: var(--muted); font-size: 1.05rem; }
+.swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+.sw { border: 1px solid var(--line); border-radius: 4px; overflow: hidden; background: var(--surface); }
+.sw i { display: block; height: 56px; }
+.sw div { padding: 8px 10px; font-size: 0.85rem; }
+.sw code { font-family: var(--mono); color: var(--muted); }
+.type-row { display: grid; grid-template-columns: 140px 1fr; gap: 12px; align-items: baseline; border-top: 1px solid var(--line); padding: 12px 0; }
+.type-row small { color: var(--muted); }
+.num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 18px; }
+.card h3 { margin: 0; font-size: 1.05rem; font-weight: 650; }
+.card .lab { color: var(--muted); font-size: 0.875rem; margin: 2px 0 12px; }
+.verdict { font-size: 0.95rem; margin: 12px 0 4px; }
+.meta { color: var(--muted); font-size: 0.8rem; }
+svg.chart { width: 100%; height: auto; display: block; }
+.legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: 0.8rem; color: var(--muted); margin-top: 6px; }
+.legend b { display: inline-block; width: 14px; height: 10px; vertical-align: middle; margin-right: 6px; }
+details { margin-top: 14px; border-top: 1px solid var(--line); padding-top: 10px; }
+summary { cursor: pointer; font-size: 0.9rem; }
+details blockquote { margin: 10px 0 0; padding: 10px 12px; border: 1px solid var(--line); border-radius: 4px; font-size: 0.9rem; }
+details .src { color: var(--muted); font-size: 0.8rem; margin-top: 6px; }
+ul.voice { padding-left: 20px; max-width: 68ch; }
+ul.voice li { margin-bottom: 6px; }
+@media (max-width: 560px) { h1 { font-size: 1.75rem; } .type-row { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="brand">
+    <svg width="40" height="40" viewBox="0 0 40 40" role="img" aria-label="nerf-bench logo">
+      <rect x="1" y="1" width="38" height="38" rx="6" fill="none" stroke="currentColor" stroke-width="2"/>
+      <path d="M8 26 L16 18 L22 22 L32 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <line x1="8" y1="30" x2="32" y2="30" stroke="#b3400a" stroke-width="2" stroke-dasharray="3 3"/>
+    </svg>
+    <span>nerf-bench</span>
+  </div>
+  <button class="theme" type="button" onclick="var r=document.documentElement;r.dataset.theme=(r.dataset.theme==='dark'||(!r.dataset.theme&&matchMedia('(prefers-color-scheme: dark)').matches))?'light':'dark'">Switch light or dark</button>
+</header>
+
+<h1>Concept A: Instrument</h1>
+<p class="lede">A measuring instrument, not a publication. Neutral greys, one blue for the uncertainty band, one burnt orange reserved for the launch-week baseline. Numbers are set in monospace because they are measurements.</p>
+
+<h2>Name and logo</h2>
+<p>Keeps the working name <strong>nerf-bench</strong>. The mark is a trace line inside a square frame, with a dashed baseline beneath it: the whole method in one glyph (a line compared against where it started). Drawn at one stroke weight so it holds at 16 pixels.</p>
+
+<h2>Colour</h2>
+<div class="swatches">
+  <div class="sw"><i style="background:#14161a"></i><div>Ink<br><code>#14161a</code></div></div>
+  <div class="sw"><i style="background:#f7f7f5"></i><div>Paper<br><code>#f7f7f5</code></div></div>
+  <div class="sw"><i style="background:#1f4f8a"></i><div>Band blue<br><code>#1f4f8a</code></div></div>
+  <div class="sw"><i style="background:#b3400a"></i><div>Baseline orange<br><code>#b3400a</code></div></div>
+  <div class="sw"><i style="background:#4a505a"></i><div>Muted<br><code>#4a505a</code></div></div>
+</div>
+<p class="meta" style="margin-top:8px">Ink on paper 17:1. Muted on paper 8:1. Band blue on white 8.3:1. Baseline orange on white 5.6:1. Dark theme uses lighter tints of the same two hues.</p>
+
+<h2>Type</h2>
+<div class="type-row"><small>Headings</small><div style="font-weight:650;font-size:1.5rem">Segoe UI or system sans, semibold</div></div>
+<div class="type-row"><small>Body</small><div>The same sans at regular weight, 16 pixels, 68 character measure.</div></div>
+<div class="type-row"><small>Measurements</small><div class="num">71.4% pass rate, n = 120, 95% band 66.2 to 76.1</div></div>
+
+<h2>Home grid card</h2>
+<div class="grid">
+<article class="card">
+  <h3>Model Alpha</h3>
+  <div class="lab">Lab One, default effort, subscription app</div>
+  <svg class="chart" viewBox="0 0 320 150" role="img" aria-label="Pass rate over twelve weeks. Launch week baseline 72 percent. Latest week 70 percent, inside the confidence band.">
+    <polygon points="20,48 60,50 100,46 140,52 180,50 220,55 260,53 300,56 300,96 260,92 220,94 180,88 140,90 100,84 60,88 20,86" fill="var(--band-fill)"/>
+    <line x1="20" y1="66" x2="300" y2="66" stroke="var(--signal)" stroke-width="1.5" stroke-dasharray="5 4"/>
+    <polyline points="20,67 60,69 100,64 140,71 180,68 220,74 260,72 300,76" fill="none" stroke="var(--band)" stroke-width="2"/>
+    <circle cx="20" cy="67" r="4.5" fill="var(--surface)" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="20" y1="130" x2="300" y2="130" stroke="var(--line)"/>
+    <text x="20" y="145" font-size="10" fill="var(--muted)" font-family="var(--mono)">day one</text>
+    <text x="300" y="145" font-size="10" fill="var(--muted)" text-anchor="end" font-family="var(--mono)">this week</text>
+    <text x="300" y="62" font-size="10" fill="var(--signal)" text-anchor="end" font-family="var(--mono)">launch week 72%</text>
+  </svg>
+  <div class="legend"><span><b style="background:var(--band-fill);border:1px solid var(--band)"></b>95% band</span><span><b style="border-top:2px dashed var(--signal);height:0"></b>launch week</span><span>open circle: day one</span></div>
+  <p class="verdict"><strong>Within normal variation.</strong> <span class="num">70.1%</span> this week against <span class="num">72.0%</span> in launch week.</p>
+  <div class="meta">120 tasks, signed run, checked 3 hours ago</div>
+  <details>
+    <summary>Reply from Lab One (their words, not ours)</summary>
+    <blockquote>We shipped an app update on 2 September that changed the default context window. We are investigating reports of slower responses.</blockquote>
+    <div class="src">Posted verbatim as received on 4 September. <a href="#">Source</a></div>
+  </details>
+</article>
+</div>
+
+<h2>Verdict voice</h2>
+<ul class="voice">
+  <li><strong>Within normal variation.</strong> 70.1% this week against 72.0% in launch week.</li>
+  <li><strong>Confirmed drop of 7 points since launch week.</strong> The published rule cleared on three consecutive weeks.</li>
+  <li><strong>Confirmed rise of 4 points since launch week.</strong></li>
+  <li><strong>Not enough runs yet to compare.</strong> 38 of 120 tasks completed this week.</li>
+</ul>
+<p>Plain statements of what was measured. No adjectives, no intent, no exclamation.</p>
+
+<h2>Rationale</h2>
+<p>Trust comes from looking like a calibrated tool. The palette is almost colourless so the two colours that do appear always mean the same thing: blue is uncertainty, orange is the launch-week reference. The playful name carries all the personality; everything else stays quiet so a reader never wonders whether the design is editorialising.</p>
+</div>
+</body>
+</html>

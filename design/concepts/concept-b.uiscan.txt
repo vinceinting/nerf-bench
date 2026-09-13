@@ -1,0 +1,6 @@
+node C:\Users\Vince\.harness-v2\tools\uiscan\uiscan.cjs concept-b.html   (exit 0, 2026-09-13)
+First run flagged cream-palette on the page background rgb(244, 241, 234); paper changed to #eef1ef and rescanned.
+scanned 1 file(s) across 2 rendered surface(s): default, dark
+WARN concept-b.html: more than one top-level :root block. The surface merge reads the first one only, so a palette defined in a later block may be misreported.
+CLEAN. No finding on any surface that renders.
+Not covered by the scan (checked by hand): link, span and button contrast. Links use civic green, about 7:1 on paper.
