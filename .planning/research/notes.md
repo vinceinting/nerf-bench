@@ -52,7 +52,11 @@ R-11 constraint: no commit under site/ except site/methodology and site/data unt
 - W-B tasks and stats: owns tasks/, scoring/, stats/, prd-cells for R-12..R-16, R-19, R-22, R-24, R-26, R-69, N-02, N-10. Worktree: agent isolation.
 - W-C design: owns design/, prd-cell R-10. Worktree: agent isolation.
 - W-D site data, methodology, verifier, markers: owns site/data, site/methodology, tools/verify, markers/, prd-cells R-17, R-18, R-20, R-21, R-44..R-49, R-57, N-12. Worktree: agent isolation.
+Worktrees: the engine's isolation option refused ("not in a git repository"), so each track runs in a git worktree created by the orchestrator: C:\Users\Vince\Documents\VS Code Projects\nerf-bench-wt\<track>, branch build/<track>, from a129ff8.
 Held inline by orchestrator: phase-1 real runs on GitHub (secrets with Vince), R-11, Cloudflare, floor, release switch, research/terms.md (R-67, R-70).
+
+- Wave 1 launched 13:5x MDT: four level-2 workers (opus) in worktrees W-A..W-D, results arrive as task notifications.
+- Inline: research/terms.md started (Anthropic verbatim, xAI headless doc). OpenAI and xAI terms pages 403 to WebFetch; brief .planning/research/codex-brief-terms.md sent to Codex thread 01a09918 (accepted, exit 0); it writes .planning/research/terms-codex.md and messages back.
 
 ## Official terms read (code.claude.com/docs/en/legal-and-compliance)
 - Subscription OAuth is "designed to support ordinary use of Claude Code"; third parties may not "route requests through Free, Pro, or Max plan credentials on behalf of their users" or "collect, store, or intermediate Claude.ai credentials".

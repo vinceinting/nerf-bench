@@ -10,8 +10,15 @@ const ROOT = path.join(DIR, '..', '..');
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-function render() {
+// The rotation interval lives only in the file settings.rotation_setting names (tasks/rotation.json).
+function loadSettings() {
   const s = JSON.parse(fs.readFileSync(path.join(DIR, 'settings.json'), 'utf8'));
+  s.rotation = JSON.parse(fs.readFileSync(path.join(ROOT, s.rotation_setting), 'utf8'));
+  return s;
+}
+
+function render() {
+  const s = loadSettings();
   const interval = s.rotation.interval_days;
   if (!Number.isInteger(interval) || interval <= 0) throw new Error('rotation.interval_days must be a positive integer');
   let frozenValue = '';
@@ -37,7 +44,7 @@ function render() {
   return { html, settings: s };
 }
 
-module.exports = { render };
+module.exports = { render, loadSettings };
 
 if (require.main === module) {
   const { html } = render();

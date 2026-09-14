@@ -32,11 +32,11 @@
 
 <h2 id="rotation">Rotation</h2>
 <p>Task sets rotate every <span class="setting" id="rotation-interval-days">28</span> days. For <span class="setting" id="rotation-overlap-days">7</span> days the outgoing and incoming sets both run, so each chart bridges the change. Every rotation appears as a marker on the charts it affects.</p>
-<p class="label" id="rotation-label">The build's choice, an operational default within amendment A1's &quot;rotate faster&quot;. Vince has not set it and may override it by amendment.</p>
+<p class="label" id="rotation-label">Build default: chosen by the build as an operational default within amendment A1's &quot;rotate faster&quot; (Amendment 13). Vince may override it by amendment at any time.</p>
 <p>When a set retires, its tasks and every past answer to them are published in full, and stay published.</p>
 
 <h2 id="tracks">App versions</h2>
-<p>Each model is measured on two app tracks. "Latest" installs whatever version the vendor currently ships. "Frozen" holds one version fixed and advances it only on a published schedule, set in <code>config/frozen-versions</code>. Every move of a frozen version appears as a chart marker.</p>
+<p>Each model is measured on two app tracks. "Latest" installs whatever version the vendor currently ships. "Frozen" holds one version fixed and advances it only on a published schedule, set in <code>config/frozen-versions</code>, currently: {&quot;interval_days&quot;:28,&quot;anchor&quot;:&quot;2026-09-13T00:00:00Z&quot;,&quot;rule&quot;:&quot;A pin takes effect only when its effective_from is the anchor plus a whole number of intervals. An off-schedule pin is ignored by the runner and reported.&quot;}. Every move of a frozen version appears as a chart marker.</p>
 <p class="label" id="frozen-schedule-label">The build's choice, an operational default (Amendment 14). Vince has not set it and may override it by amendment.</p>
 
 <h2 id="statistics">Statistics</h2>
