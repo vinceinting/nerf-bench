@@ -58,6 +58,12 @@ Held inline by orchestrator: phase-1 real runs on GitHub (secrets with Vince), R
 - Wave 1 launched 13:5x MDT: four level-2 workers (opus) in worktrees W-A..W-D, results arrive as task notifications.
 - Inline: research/terms.md started (Anthropic verbatim, xAI headless doc). OpenAI and xAI terms pages 403 to WebFetch; brief .planning/research/codex-brief-terms.md sent to Codex thread 01a09918 (accepted, exit 0); it writes .planning/research/terms-codex.md and messages back.
 
+- Wave 1 landed on main, one at a time with the test gate between: W-C b097905 (R-10), W-D 38067c0, W-B f906cfb, W-A edb2df1. Reconcile d55dc87 + a868bcc: rotation interval single home tasks/rotation.json, .gitattributes LF (fixed R-34 CRLF regex), methodology re-rendered. Gate: 61/61 tests; prd-verify 16 passed of 85. Pushed.
+- Vince asked to pick a concept; he answered he will pick after restarting his PC. R-11 and all site/ surfaces other than data and methodology wait on it.
+- Terms: Codex browser read done (.planning/research/terms-codex.md). research/terms.md now quotes all three labs. Judgement: no clause forbids outright; OpenAI documents ChatGPT auth on CI runners; xAI AUP bans UNAUTHORIZED automation while xAI markets CI scripting. To put to Vince per R-67: whether he accepts these readings.
+- Research agents launched: desktop-app feasibility (.planning/research/desktop-feasibility.md), model catalog ids (.planning/research/model-catalog.md).
+- W-E reconcile track: worktree C:\Users\Vince\Documents\VS Code Projects\nerf-bench-wt\W-E, branch build/W-E from a868bcc, budget 60 min. Owns the cross-track joins listed in its brief; notes .planning/build/W-E.md.
+
 ## Official terms read (code.claude.com/docs/en/legal-and-compliance)
 - Subscription OAuth is "designed to support ordinary use of Claude Code"; third parties may not "route requests through Free, Pro, or Max plan credentials on behalf of their users" or "collect, store, or intermediate Claude.ai credentials".
 - Hosting Claude Code in sandboxes/agent infrastructure is allowed under Commercial Terms if the binary is unmodified and each end user authenticates with their own key or subscription, billed to them. Relevant to Area 6/7: a hosted community runner is permitted only if each contributor signs in themselves through Anthropic's flow; the site must never hold their credentials.

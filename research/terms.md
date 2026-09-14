@@ -28,13 +28,51 @@ What this means for nerf-bench: each contributor signs in with their own subscri
 
 ## OpenAI (Codex CLI, Codex Windows app)
 
-Pending: the official pages refuse non-browser reads; a browser read is in progress and its verbatim quotes land here.
+Read 2026-09-13 in a browser (the pages refuse scripted reads). The browser reader kept quotes short; the section named beside each quote is where the full passage sits.
+
+https://openai.com/policies/terms-of-use/ (effective January 1, 2026). Under "Using our Services", "What you cannot do":
+
+> Automatically or programmatically extract data or Output (defined below).
+
+Under "Registration and access" (fragment): "You may not share your account credentials". Under "Termination and suspension" (fragment): "suspend or terminate your access to our Services".
+
+https://learn.chatgpt.com/docs/auth?surface=cli (the redirect target of developers.openai.com/codex/auth), under "Sign in with an API key":
+
+> Use API key authentication for programmatic Codex CLI workflows, such as CI/CD jobs.
+
+https://learn.chatgpt.com/docs/auth/ci-cd-auth , "Maintain Codex account auth in CI/CD (advanced)", opening sentence:
+
+> This guide shows how to keep ChatGPT-managed Codex auth working on a trusted CI/CD runner without calling the OAuth token endpoint yourself.
+
+That guide gives `codex exec` examples for GitHub Actions, on a self-hosted runner and on ephemeral runners, with prerequisites and operational rules that the floor and the contributor README must follow.
+
+What this means for nerf-bench: OpenAI documents ChatGPT sign-in on CI runners as a supported advanced pattern, so neither the floor nor the contributor flow is forbidden. OpenAI recommends API keys for CI, and the general "programmatically extract ... Output" clause is broad; both are stated to contributors (R-70).
 
 ## xAI (Grok Build)
 
-Source: https://docs.x.ai/build/cli/headless-scripting , read 2026-09-13. The page says headless mode is for "scripts, bots, or other machine-friendly tasks" and authenticates with either `XAI_API_KEY` or a cached token from `grok login`. It says nothing about limits on subscription use in automation.
+Read 2026-09-13 in a browser.
 
-Terms of service: pending, same browser read as OpenAI.
+https://x.ai/legal/acceptable-use-policy (effective August 14, 2026), under "Comply with the law":
+
+> Accessing the Services through unauthorized automated or non-human means, whether through a bot, script, or otherwise
+
+https://x.ai/legal/terms-of-service (last updated September 11, 2026), under "2. Registration and Access" (fragment): "You may not share your account credentials or make your account available to anyone else,"
+
+https://x.ai/news/grok-build-cli (May 25, 2026):
+
+> Available now to all SuperGrok and X Premium Plus subscribers.
+
+> Headless mode (-p) allows easily running agents inside scripts and automations.
+
+https://x.ai/build , feature "Headless mode": "Script Grok Build in CI/CD pipelines".
+
+https://docs.x.ai/build/overview , under "Start an interactive session": "In non-browser environments, use an API key:". Under "Run headlessly": "Headless usage is ideal for scripts, automations, or integration into other apps."
+
+https://docs.x.ai/build/cli/reference (updated July 21, 2026), `grok login`: "Sign in. --device-auth uses device-code authentication for headless or remote environments"
+
+What this means for nerf-bench: the policy bans UNAUTHORIZED automation, and xAI's own product page markets scripting Grok Build in CI, which is the use here. xAI's getting-started page steers non-browser environments to an API key, while its login command offers device sign-in for headless machines. No clause forbids the floor or the contributor flow outright; the tension is stated to contributors (R-70).
+
+Full browser record, with section pointers for every passage not quoted: `.planning/research/terms-codex.md`.
 
 ## Vince's answers on forbidding clauses
 
