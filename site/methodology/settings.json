@@ -1,0 +1,14 @@
+{
+  "_comment": "Published settings the methodology page states. rotation.interval_days is the ONE rotation interval setting (R-18, Amendment 13); tasks/rotation should read it from here or it moves to config/ at merge.",
+  "rotation": {
+    "interval_days": 28,
+    "overlap_days": 7,
+    "label": "The build's choice, an operational default within amendment A1's \"rotate faster\". Vince has not set it and may override it by amendment."
+  },
+  "frozen_schedule": {
+    "setting": "config/frozen-versions",
+    "label": "The build's choice, an operational default (Amendment 14). Vince has not set it and may override it by amendment."
+  },
+  "stats_rule": "stats/RULE.md",
+  "repository": "https://github.com/vinceinting/nerf-bench"
+}
