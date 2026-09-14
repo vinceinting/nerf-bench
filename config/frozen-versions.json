@@ -1,0 +1,13 @@
+{
+  "label": "Build's operational default (Amendment 14). Vince may override the interval or any pin by a PRD amendment.",
+  "schedule": {
+    "interval_days": 28,
+    "anchor": "2026-09-13T00:00:00Z",
+    "rule": "A pin takes effect only when its effective_from is the anchor plus a whole number of intervals. An off-schedule pin is ignored by the runner and reported."
+  },
+  "pins": [
+    { "app": "claude-code", "version": "2.1.270", "effective_from": "2026-09-13T00:00:00Z" },
+    { "app": "codex-cli", "version": "0.153.0", "effective_from": "2026-09-13T00:00:00Z" },
+    { "app": "grok-build", "version": "1.0.5", "effective_from": "2026-09-13T00:00:00Z" }
+  ]
+}

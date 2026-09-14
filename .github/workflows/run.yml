@@ -1,0 +1,156 @@
+# nerf-bench official reusable workflow (R-01 to R-09, R-29, R-30, R-32, R-33, Amendment 1).
+# Contributors never copy this file: their copy holds only the thin caller in
+# .github/caller-template/nerf-bench-run.yml, which calls this workflow in the official repository.
+# The code that runs is checked out from the official repository at the exact commit of this
+# workflow (read from the job's own OIDC token), so a caller cannot swap the runner.
+# Runs only on GitHub-hosted runners. Credentials come only from the caller repository's secrets
+# and are passed to the runner as environment variables; nothing here echoes them.
+name: nerf-bench run
+
+on:
+  workflow_call:
+    inputs:
+      app:
+        description: claude-code, codex-cli, grok-build, codex-desktop or claude-desktop
+        type: string
+        required: true
+      model:
+        description: a model id from config/catalog.json
+        type: string
+        required: true
+      effort:
+        description: an effort listed for the app in config/catalog.json, or default
+        type: string
+        default: default
+      track:
+        description: latest or frozen
+        type: string
+        default: latest
+      access_path:
+        description: subscription or api
+        type: string
+        default: subscription
+      account_source:
+        description: self-paid, contributor-owned or donated
+        type: string
+        default: contributor-owned
+      task_set:
+        description: optional; must be a set the official store serves for the model, else the run is refused
+        type: string
+        default: ''
+      floor:
+        description: true only for the official floor schedule; refused from any other repository
+        type: boolean
+        default: false
+    secrets:
+      CLAUDE_CODE_OAUTH_TOKEN: { required: false }
+      ANTHROPIC_API_KEY: { required: false }
+      CODEX_AUTH_JSON: { required: false }
+      OPENAI_API_KEY: { required: false }
+      GROK_AUTH_JSON: { required: false }
+      XAI_API_KEY: { required: false }
+
+permissions:
+  contents: read
+  id-token: write
+  attestations: write
+
+jobs:
+  start:
+    # R-32: the start record is attested (and so publicly logged) before any task runs.
+    runs-on: ubuntu-latest
+    outputs:
+      sha: ${{ steps.self.outputs.sha }}
+    steps:
+      - id: self
+        name: Resolve this workflow's own commit from the job's OIDC token
+        shell: bash
+        run: |
+          set -euo pipefail
+          TOKEN=$(curl -sSf -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=nerf-bench-self" | jq -r .value)
+          PAYLOAD=$(echo "$TOKEN" | cut -d. -f2 | tr '_-' '/+')
+          while [ $(( ${#PAYLOAD} % 4 )) -ne 0 ]; do PAYLOAD="$PAYLOAD="; done
+          CLAIMS=$(echo "$PAYLOAD" | base64 -d)
+          REF=$(echo "$CLAIMS" | jq -r .job_workflow_ref)
+          SHA=$(echo "$CLAIMS" | jq -r .job_workflow_sha)
+          case "$REF" in
+            vinceinting/nerf-bench/.github/workflows/run.yml@*) ;;
+            *) echo "not the official workflow: $REF"; exit 1 ;;
+          esac
+          echo "official workflow $REF at $SHA"
+          echo "sha=$SHA" >> "$GITHUB_OUTPUT"
+      - uses: actions/checkout@v4
+        with:
+          repository: vinceinting/nerf-bench
+          ref: ${{ steps.self.outputs.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Write start.json
+        shell: bash
+        env:
+          NB_APP: ${{ inputs.app }}
+          NB_MODEL: ${{ inputs.model }}
+          NB_EFFORT: ${{ inputs.effort }}
+          NB_TRACK: ${{ inputs.track }}
+          NB_ACCESS: ${{ inputs.access_path }}
+          NB_ACCOUNT_SOURCE: ${{ inputs.account_source }}
+          NB_FLOOR: ${{ inputs.floor }}
+          NB_WORKFLOW_SHA: ${{ steps.self.outputs.sha }}
+        run: node runner/run.cjs start --out start
+      - uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: start/start.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nerf-bench-start
+          path: start/start.json
+
+  run:
+    needs: start
+    # Desktop apps run on a GitHub-hosted Windows runner (Amendment 6); the CLIs on Linux.
+    runs-on: ${{ (inputs.app == 'codex-desktop' || inputs.app == 'claude-desktop') && 'windows-latest' || 'ubuntu-latest' }}
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: vinceinting/nerf-bench
+          ref: ${{ needs.start.outputs.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Run the benchmark
+        shell: bash
+        env:
+          NB_APP: ${{ inputs.app }}
+          NB_MODEL: ${{ inputs.model }}
+          NB_EFFORT: ${{ inputs.effort }}
+          NB_TRACK: ${{ inputs.track }}
+          NB_ACCESS: ${{ inputs.access_path }}
+          NB_ACCOUNT_SOURCE: ${{ inputs.account_source }}
+          NB_TASK_SET: ${{ inputs.task_set }}
+          NB_FLOOR: ${{ inputs.floor }}
+          NB_WORKFLOW_SHA: ${{ needs.start.outputs.sha }}
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          CODEX_AUTH_JSON: ${{ secrets.CODEX_AUTH_JSON }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GROK_AUTH_JSON: ${{ secrets.GROK_AUTH_JSON }}
+          XAI_API_KEY: ${{ secrets.XAI_API_KEY }}
+        run: node runner/run.cjs run --out out
+      - uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: out/result.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nerf-bench-run
+          if-no-files-found: warn
+          path: |
+            out/result.json
+            out/run.log
+            out/inventory.json
+            out/refusals.jsonl
+            out/transcripts/*.sealed

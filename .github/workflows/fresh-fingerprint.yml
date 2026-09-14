@@ -1,0 +1,44 @@
+# Computes the published fresh-install fingerprint of one app version (R-07) on a clean
+# GitHub-hosted runner: official install, no sign-in, no task. Its attested output is what
+# runner/fingerprint/published.json records, one entry per app version.
+name: nerf-bench fresh-install fingerprint
+
+on:
+  workflow_dispatch:
+    inputs:
+      app:
+        type: choice
+        options: [claude-code, codex-cli, grok-build, codex-desktop, claude-desktop]
+      track:
+        type: choice
+        default: latest
+        options: [latest, frozen]
+
+permissions:
+  contents: read
+  id-token: write
+  attestations: write
+
+jobs:
+  fresh:
+    runs-on: ${{ (inputs.app == 'codex-desktop' || inputs.app == 'claude-desktop') && 'windows-latest' || 'ubuntu-latest' }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install and fingerprint
+        shell: bash
+        env:
+          NB_APP: ${{ inputs.app }}
+          NB_TRACK: ${{ inputs.track }}
+        run: node runner/run.cjs fresh-fingerprint --out fresh
+      - uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: fresh/fresh-fingerprint.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nerf-bench-fresh-fingerprint
+          path: fresh/fresh-fingerprint.json
